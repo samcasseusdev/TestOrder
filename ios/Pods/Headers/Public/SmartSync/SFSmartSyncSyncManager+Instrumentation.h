@@ -1,0 +1,1 @@
+../../../../../mobile_sdk/SalesforceMobileSDK-iOS/libs/SmartSync/SmartSync/Classes/Instrumentation/SFSmartSyncSyncManager+Instrumentation.h

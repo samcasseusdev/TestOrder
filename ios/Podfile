@@ -1,0 +1,50 @@
+platform :ios, '11.0'
+
+project 'TestOrder.xcodeproj'
+target 'TestOrder' do
+
+source 'https://github.com/CocoaPods/Specs.git'
+
+pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
+pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
+pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
+pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+pod 'React', :path => '../node_modules/react-native', :subspecs => [
+    'DevSupport',
+    'cxxreact',
+    'CxxBridge',
+    'ART',
+    'RCTActionSheet',
+    'RCTAnimation',
+    'RCTCameraRoll',
+    'RCTGeolocation',
+    'RCTImage',
+    'RCTNetwork',
+    'RCTPushNotification',
+    'RCTSettings',
+    'RCTText',
+    'RCTVibration',
+    'RCTWebSocket',
+    'RCTLinkingIOS'
+]
+
+pod 'SalesforceSDKCommon', :path => '../mobile_sdk/SalesforceMobileSDK-iOS'
+pod 'SalesforceAnalytics', :path => '../mobile_sdk/SalesforceMobileSDK-iOS'
+pod 'SalesforceSDKCore', :path => '../mobile_sdk/SalesforceMobileSDK-iOS'
+pod 'SmartStore', :path => '../mobile_sdk/SalesforceMobileSDK-iOS'
+pod 'SmartSync', :path => '../mobile_sdk/SalesforceMobileSDK-iOS'
+pod 'SalesforceReact', :path => '../node_modules/react-native-force'
+
+end
+
+# Comment the following if you do not want the SDK to emit signpost events for instrumentation. Signposts are  enabled for non release version of the app.
+ post_install do |installer_representation|
+       installer_representation.pods_project.targets.each do |target|
+           target.build_configurations.each do |config|
+               if config.name == 'Debug'
+                   config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'DEBUG=1','SIGNPOST_ENABLED=1']
+                   config.build_settings['OTHER_SWIFT_FLAGS'] = ['$(inherited)', '-DDEBUG','-DSIGNPOST_ENABLED']
+               end
+           end
+       end
+  end
